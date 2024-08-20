@@ -1,10 +1,6 @@
 from django.contrib import admin
-from .models import Category, Product  # Correct import path
+from .models import Product, Category
 
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'friendly_name')
-
-@admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category', 'price')
+# Register your models here.
+admin.site.register(Product)
+admin.site.register(Category)
