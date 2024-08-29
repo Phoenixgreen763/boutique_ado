@@ -27,13 +27,14 @@ def cache_checkout_data(request):
             processed right now. Please try again later.')
         return HttpResponse(content=e, status=400)
 
+
 def checkout(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
-    
+
     if request.method == 'POST':
         bag = request.session.get('bag', {})
-        
+
         form_data = {
             'full_name': request.POST['full_name'],
             'email': request.POST['email'],
@@ -78,8 +79,8 @@ def checkout(request):
                     )
                     order.delete()
                     return redirect(reverse('view_bag'))
-                
-            request.session['save_info'] = 'save_info' in request.POST
+
+            request.session['save_info'] = 'save-info' in request.POST
             return redirect(reverse('checkout_success', args=[order.order_number]))
         else:
             messages.error(request, 'There was an error with your form. \
@@ -101,18 +102,18 @@ def checkout(request):
 
         order_form = OrderForm()
 
-        if not stripe_public_key:
-            messages.warning(request, 'Stripe public key is missing. \
-                Did you forget to set it in your environment?')
+    if not stripe_public_key:
+        messages.warning(request, 'Stripe public key is missing. \
+            Did you forget to set it in your environment?')
 
-        template = 'checkout/checkout.html'
-        context = {
-            'order_form': order_form,
-            'stripe_public_key': stripe_public_key,
-            'client_secret': intent.client_secret,
-        }
+    template = 'checkout/checkout.html'
+    context = {
+        'order_form': order_form,
+        'stripe_public_key': stripe_public_key,
+        'client_secret': intent.client_secret,
+    }
 
-        return render(request, template, context)
+    return render(request, template, context)
 
 
 def checkout_success(request, order_number):
@@ -124,13 +125,13 @@ def checkout_success(request, order_number):
     messages.success(request, f'Order successfully processed! \
         Your order number is {order_number}. A confirmation \
         email will be sent to {order.email}.')
-    
+
     if 'bag' in request.session:
         del request.session['bag']
-        
+
     template = 'checkout/checkout_success.html'
     context = {
-        'order': order
+        'order': order,
     }
-    
+
     return render(request, template, context)

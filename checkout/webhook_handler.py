@@ -1,3 +1,4 @@
+import stripe
 from django.http import HttpResponse
 
 from .models import Order, OrderLineItem
@@ -8,18 +9,18 @@ import time
 
 class StripeWH_Handler:
     """Handle Stripe webhooks"""
-    
+
     def __init__(self, request):
         self.request = request
-    
+
     def handle_event(self, event):
         """
-        Handle a generic/unkown/unexpected webhook event
+        Handle a generic/unknown/unexpected webhook event
         """
         return HttpResponse(
-            content=f'Webhook receieved: {event["type"]}',
+            content=f'Unhandled webhook received: {event["type"]}',
             status=200)
-        
+
     def handle_payment_intent_succeeded(self, event):
         """
         Handle the payment_intent.succeeded webhook from Stripe
@@ -37,11 +38,12 @@ class StripeWH_Handler:
         billing_details = stripe_charge.billing_details # updated
         shipping_details = intent.shipping
         grand_total = round(stripe_charge.amount / 100, 2) # updated
-        
+
+        # Clean data in the shipping details
         for field, value in shipping_details.address.items():
             if value == "":
                 shipping_details.address[field] = None
-                
+
         order_exists = False
         attempt = 1
         while attempt <= 5:
@@ -67,7 +69,7 @@ class StripeWH_Handler:
                 time.sleep(1)
         if order_exists:
             return HttpResponse(
-                content=f'Webhook receieved: {event["type"]} \ SUCCESS: Verified order already in database',
+                content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
                 status=200)
         else:
             order = None
@@ -107,18 +109,16 @@ class StripeWH_Handler:
                 if order:
                     order.delete()
                 return HttpResponse(
-                    content=f'Webhook receieved: {event["type"]} | ERROR: {e}',
+                    content=f'Webhook received: {event["type"]} | ERROR: {e}',
                     status=500)
-                            
-                            
         return HttpResponse(
-            content=f'Webhook receieved: {event["type"]} | SUCCESS: created order in webhook',
+            content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
             status=200)
-    
-    def handle_payment_intent_failed(self, event):
+
+    def handle_payment_intent_payment_failed(self, event):
         """
-        Handle the payment_intent.failed webhook from Stripe
+        Handle the payment_intent.payment_failed webhook from Stripe
         """
         return HttpResponse(
-            content=f'Webhook receieved: {event["type"]}',
+            content=f'Webhook received: {event["type"]}',
             status=200)
