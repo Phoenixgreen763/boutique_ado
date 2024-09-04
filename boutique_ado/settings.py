@@ -62,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'boutique_ado.urls'
@@ -209,3 +210,6 @@ STRIPE_PUBLIC_KEY = 'pk_test_51PsVdH00lWMfG7HX2FXh0d93bsxrWUtjhkRUYmuaZ5wHEvNFRI
 STRIPE_SECRET_KEY = 'sk_test_51PsVdH00lWMfG7HXbhI1DAf3B3wcmRwe6H61uSOT4c0IvzhaMIkB5QKMuwDdHOKhNvqtXOBSyLR2cADZOdWV8uOH00kvCIw5ci'
 STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
 DEFAULT_FROM_EMAIL = 'boutiqueado@example.com'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
