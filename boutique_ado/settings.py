@@ -29,7 +29,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['boutique-ado-practice-1fea992b29cd.herokuapp.com', 'localhost', '127.0.0.1']
 
-
 # Application definition
 
 INSTALLED_APPS = [
