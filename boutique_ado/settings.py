@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEVELOPMENT' in os.environ
 
-ALLOWED_HOSTS = ['ckz8780-boutique-ado.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['boutique-ado-practice-1fea992b29cd.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -183,8 +183,8 @@ if 'USE_AWS' in os.environ:
     }
 
     # Bucket Config
-    AWS_STORAGE_BUCKET_NAME = 'ckz8780-boutique-ado'
-    AWS_S3_REGION_NAME = 'us-east-1'
+    AWS_STORAGE_BUCKET_NAME = 'boutique-ado-practice1'
+    AWS_S3_REGION_NAME = 'eu-north-1'
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
@@ -204,10 +204,7 @@ if 'USE_AWS' in os.environ:
 FREE_DELIVERY_THRESHOLD = 50
 STANDARD_DELIVERY_PERCENTAGE = 10
 STRIPE_CURRENCY = 'usd'
-STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
-STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
+STRIPE_PUBLIC_KEY = 'pk_test_51PsVdH00lWMfG7HX2FXh0d93bsxrWUtjhkRUYmuaZ5wHEvNFRIpAcGYxC2KchxC2Zdlqn1eX5F3g3QknCz8H8hNb00Pbmy3gIG'
+STRIPE_SECRET_KEY = 'sk_test_51PsVdH00lWMfG7HXbhI1DAf3B3wcmRwe6H61uSOT4c0IvzhaMIkB5QKMuwDdHOKhNvqtXOBSyLR2cADZOdWV8uOH00kvCIw5ci'
 STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
 DEFAULT_FROM_EMAIL = 'boutiqueado@example.com'
-
-USE_TZ = True
-TIME_ZONE = 'UTC'
