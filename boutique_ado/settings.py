@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['boutique-ado-practice-1fea992b29cd.herokuapp.com', 'localhost', '127.0.0.1', '8000-phoenixgree-boutiqueado-bgltk4o8oc2.ws-eu116.gitpod.io',]
+ALLOWED_HOSTS = ['boutique-ado-practice-1fea992b29cd.herokuapp.com', 'localhost', '127.0.0.1', '8000-phoenixgree-boutiqueado-6e8qc6zconb.ws-eu116.gitpod.io',]
 
 # Application definition
 
@@ -61,7 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware',
+    # 'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'boutique_ado.urls'
